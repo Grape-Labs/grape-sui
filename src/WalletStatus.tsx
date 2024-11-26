@@ -1,19 +1,30 @@
 import { useCurrentAccount } from "@mysten/dapp-kit";
 import { Container, Heading, Text, Flex, Box, Card } from "@radix-ui/themes";
 import { OwnedObjects } from "./OwnedObjects";
+import { useState } from "react";
 
 export function WalletStatus() {
   const account = useCurrentAccount();
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyToClipboard = () => {
+    if (account?.address) {
+      navigator.clipboard.writeText(account.address);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000); // Reset "Copied" message after 2 seconds
+    }
+  };
+
+  const shortenAddress = (address: string) =>
+    `${address.slice(0, 6)}...${address.slice(-4)}`; // Shorten address
 
   return (
     <Container my="4">
       <Card
-        p="4"
-        borderRadius="lg"
-        shadow="sm"
         style={{
+          padding: "16px", // Equivalent to p="4"
+          borderRadius: "8px", // Equivalent to borderRadius="lg"
           backgroundColor: "var(--gray-a2)",
-          border: "1px solid var(--gray-a3)",
         }}
       >
         <Heading mb="3" size="2" weight="medium">
@@ -25,13 +36,27 @@ export function WalletStatus() {
             <Text weight="medium" style={{ color: "var(--green-11)" }}>
               Wallet Connected
             </Text>
-            <Box style={{ wordWrap: "break-word", background: "var(--gray-a4)", padding: "8px", borderRadius: "4px" }}>
+            <Box
+              onClick={handleCopyToClipboard}
+              style={{
+                wordWrap: "break-word",
+                background: "var(--gray-a4)",
+                padding: "8px",
+                borderRadius: "8px",
+                cursor: "pointer",
+              }}
+            >
               <Text size="2" style={{ color: "var(--gray-12)" }}>
                 Address:
               </Text>
               <Text size="2" weight="medium">
-                {account.address}
+                {shortenAddress(account.address)}
               </Text>
+              {copied && (
+                <Text size="1" weight="bold" style={{ color: "var(--green-11)" }}>
+                  Copied to clipboard!
+                </Text>
+              )}
             </Box>
           </Flex>
         ) : (
@@ -45,18 +70,13 @@ export function WalletStatus() {
 
       {/* Owned Objects Section */}
       <Card
-        mt="4"
-        p="4"
-        borderRadius="lg"
-        shadow="sm"
         style={{
+          marginTop: "16px", // Equivalent to mt="4"
+          padding: "16px", // Equivalent to p="4"
+          borderRadius: "8px", // Equivalent to borderRadius="lg"
           backgroundColor: "var(--gray-a1)",
-          border: "1px solid var(--gray-a3)",
         }}
       >
-        <Heading mb="3" size="2" weight="medium">
-          Owned Objects
-        </Heading>
         <OwnedObjects />
       </Card>
     </Container>

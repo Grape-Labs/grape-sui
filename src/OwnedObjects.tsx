@@ -80,12 +80,11 @@ export function OwnedObjects() {
             return (
               <Card
                 key={objectId}
-                p="2"
-                shadow="sm"
-                borderRadius="sm"
                 style={{
+                  padding: "8px", // Equivalent to p="2"
+                  boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)", // Equivalent to shadow="sm"
+                  borderRadius: "8px", // Equivalent to borderRadius="sm"
                   backgroundColor: "rgba(0,0,0,0.15)",
-                  border: "1px solid #222",
                 }}
               >
                 <Flex direction="column" gap="1">
@@ -128,7 +127,7 @@ export function OwnedObjects() {
                       />
                     ) : (
                       <Avatar
-                        size="6"
+                        size="2"
                         fallback={tokenMeta?.symbol?.charAt(0) || "?"}
                       />
                     )}

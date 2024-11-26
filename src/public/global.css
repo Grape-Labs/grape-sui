@@ -1,0 +1,12 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: url('/bg.svg') center/cover no-repeat, linear-gradient(180deg, #000000, #001e3c);
+  color: #ffffff;
+}
+
+#__next {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}

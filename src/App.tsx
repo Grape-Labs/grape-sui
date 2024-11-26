@@ -1,5 +1,6 @@
+import './public/global.css';
 import { ConnectButton } from "@mysten/dapp-kit";
-import { Box, Container, Flex, Heading } from "@radix-ui/themes";
+import { Box, Container, Flex, Heading, Avatar } from "@radix-ui/themes";
 import { WalletStatus } from "./WalletStatus";
 import "@radix-ui/themes/styles.css";
 import { Theme } from "@radix-ui/themes";
@@ -18,7 +19,16 @@ function App() {
           }}
         >
           <Box>
-            <Heading>Grape</Heading>
+            <Heading>
+              
+              <Avatar
+                  src={"/grape_white_logo.svg"}
+                  alt={"Grape Icon"}
+                  size="3"
+                  fallback={"Grape"}
+                />
+
+            </Heading>
           </Box>
 
           <Box>
@@ -30,7 +40,10 @@ function App() {
             mt="5"
             pt="2"
             px="4"
-            style={{ background: "var(--gray-a2)", minHeight: 500 }}
+            style={{
+              borderRadius: "8px", // Equivalent to borderRadius="lg"
+              background: "var(--gray-a2)", minHeight: 500
+            }}
           >
             <WalletStatus />
           </Container>
