@@ -8,11 +8,14 @@ export async function getTokenMetadata(coinType: string) {
     // Fetch detailed information about the object
     const metadata = await suiClient.getCoinMetadata({ coinType });
 
+    console.log("metadata ("+coinType+"): ", metadata);
+
     if (metadata) {
       return {
         name: metadata.name,
         symbol: metadata.symbol,
         decimals: metadata.decimals,
+        iconUrl: metadata.iconUrl,
         description: metadata.description || "No description available",
       };
     }
