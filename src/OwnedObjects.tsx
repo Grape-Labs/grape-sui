@@ -7,7 +7,7 @@ export function OwnedObjects() {
   const account = useCurrentAccount();
   const { data, isPending, error } = useSuiClientQuery(
     //"getOwnedObjects",
-    "getCoins",
+    "getAllCoins",
     {
       owner: account?.address as string,
     },
@@ -63,7 +63,9 @@ export function OwnedObjects() {
           <Heading size="4" mb="2">
             Tokens owned by the connected wallet
           </Heading>
-          {data.data.map((object) => {
+          {data.data
+          .filter((coin) => parseInt(coin.balance, 10) > 0)
+          .map((object) => {
             const objectId = object?.coinObjectId;
             if (!objectId) return null; // Skip objects without a valid ID
 
